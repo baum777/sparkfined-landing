@@ -37,6 +37,9 @@
 - [x] Git repository eingerichtet
 - [x] Vercel-Konfiguration (vercel.json)
 
+### UI
+- [x] Hero PnL cards use animated SVG MiniCharts (chaotic vs smooth) instead of emoji placeholders.
+
 ---
 
 ## 📋 Vor dem Launch - Action Items

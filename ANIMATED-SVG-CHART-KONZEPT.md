@@ -8,6 +8,8 @@ Ersetzung der statischen Emoji-Charts (📉/📈) durch professionelle, animiert
 - Performance-optimiert und responsive sind
 - Den professionellen Charakter von Sparkfined unterstreichen
 
+**Status:** Phase 1 (MiniChart) ist im Hero integriert und nutzt manuelle Skalierung ohne D3.
+
 ---
 
 ## 📐 Chart-Typen & Einsatzgebiete
@@ -173,6 +175,8 @@ src/components/charts/
 ---
 
 ## 📝 Implementierungs-Roadmap
+
+**V1.0 (implementiert):** MiniChart in der Hero-Section mit manueller Skalierung (kein D3), inkl. chaotischer vs. smooth Variante.
 
 ### Phase 1: Mini-Charts (Hero Section)
 **Priorität:** Hoch | **Aufwand:** 2-3h
