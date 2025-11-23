@@ -1,5 +1,4 @@
 import Hero from './components/sections/Hero';
-import { TradingDemoSection } from './components/sections/TradingDemo';
 import './styles/global.css';
 import './App.css';
 
@@ -24,9 +23,7 @@ function App() {
       {/* Main Content */}
       <main>
         <Hero />
-
-        <TradingDemoSection />
-
+        
         {/* TODO: Add other sections */}
         {/* <DemoChart /> */}
         {/* <ProblemSolution /> */}

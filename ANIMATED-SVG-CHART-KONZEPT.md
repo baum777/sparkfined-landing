@@ -188,7 +188,7 @@ src/components/charts/
 
 ---
 
-### Phase 2: Demo Trading Chart — **implementiert**
+### Phase 2: Demo Trading Chart
 **Priorität:** Mittel | **Aufwand:** 4-6h
 
 1. ✅ TradingChart Komponente scaffolding
@@ -199,12 +199,7 @@ src/components/charts/
 6. ✅ Tooltip Component
 7. ✅ Integration in DemoChart Section
 
-**Deliverable:** Interaktiver Trading-Chart mit Animation (Landing integriert)
-
-- Neue Dateien/Paths: `src/components/charts/TradingChart.tsx`, `src/components/charts/Candle.tsx`, `src/utils/mockCandles.ts`, `src/utils/chartScales.ts`, `src/components/sections/TradingDemo.tsx`
-- Interaktion: Hover-Tooltip mit Datum + O/H/L/C, Candles animieren erst, wenn der Abschnitt in Viewport scrollt; Reduced-Motion respektiert.
-- Tech: Reines SVG + Framer Motion, 60 Mock-Candles (4H-Timeframe), kein D3/Canvas.
-- Reihenfolge: Phase 1 = Mini-Charts im Hero, Phase 2 = TradingDemoSection mit Candlestick-Chart.
+**Deliverable:** Interaktiver Trading-Chart mit Animation
 
 ---
 
@@ -924,7 +919,7 @@ describe('MiniChart', () => {
 2. ✅ Nutze Framer Motion für alle Animationen
 3. ✅ Mock-Data für alle Charts
 4. ✅ Fokus auf Hero Section zuerst
-5. ✅ TradingChart als Phase 2 (Candlestick-Demo auf Landing integriert)
+5. ⏸️ TradingChart als Phase 2
 
 **Für vollständige Lösung (1-2 Wochen):**
 1. ✅ Installiere D3.js für robuste Skalierung
