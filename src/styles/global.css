@@ -211,6 +211,19 @@ button {
 }
 
 .mini-chart {
+/* Chart Demo */
+.chart-card {
+  position: relative;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  background: var(--color-bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.chart-svg {
   display: block;
   width: 100%;
   height: auto;
@@ -226,6 +239,34 @@ button {
 .progress-chart {
   width: 100%;
   height: auto;
+.chart-title {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.75rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.chart-tooltip {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0a0e1a;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.85rem;
+  pointer-events: none;
+  min-width: 200px;
+  text-align: left;
+}
+
+.chart-tooltip-title {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 /* Animations */
