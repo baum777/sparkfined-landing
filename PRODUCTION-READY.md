@@ -53,10 +53,6 @@
    - ✅ PRODUCTION-READY.md erstellt
    - ✅ OG-IMAGE-README.md für Asset-Generierung
 
-8. **Charts**
-   - ✅ Hero PnL Cards nutzen animierte SVG MiniCharts (chaotic vs smooth) ohne D3.
-   - ✅ Chart-Utilities und Scaffolding für Trading- und Progress-Charts vorbereitet.
-
 ---
 
 ## ⚠️ Vor dem Launch - Action Items
