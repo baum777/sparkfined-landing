@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { MiniChart } from '../charts/MiniChart';
 import './Hero.css';
 
 export default function Hero() {
@@ -27,7 +28,12 @@ export default function Hero() {
           {/* Chaotic Trading Card */}
           <div className="pnl-card chaotic">
             <div className="pnl-label error">CHAOTIC TRADING</div>
-            <div className="pnl-chart">📉</div>
+            <div className="pnl-chart">
+              <MiniChart type="chaotic" />
+              <span className="sr-only">
+                Chaotic trading resulted in a loss scenario with high volatility.
+              </span>
+            </div>
             <div className="pnl-stats">
               <div className="stat-row">
                 <span className="stat-label">PnL</span>
@@ -50,7 +56,12 @@ export default function Hero() {
           {/* Data-Driven Card */}
           <div className="pnl-card smooth">
             <div className="pnl-label success">DATA-DRIVEN TRADING</div>
-            <div className="pnl-chart">📈</div>
+            <div className="pnl-chart">
+              <MiniChart type="smooth" />
+              <span className="sr-only">
+                Data-driven trading resulted in smoother, more consistent gains.
+              </span>
+            </div>
             <div className="pnl-stats">
               <div className="stat-row">
                 <span className="stat-label">PnL</span>
