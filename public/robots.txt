@@ -1,0 +1,31 @@
+# Sparkfined Landing Page - Robots.txt
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin/internal paths (if any in future)
+# Disallow: /admin/
+# Disallow: /api/
+
+# Sitemap location
+Sitemap: https://sparkfined.xyz/sitemap.xml
+
+# Crawl-delay (optional, helps prevent server overload)
+# Crawl-delay: 1
+
+# Common bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block certain file types from indexing
+User-agent: *
+Disallow: /*.json$
+Disallow: /*.xml$
+Allow: /sitemap.xml$
