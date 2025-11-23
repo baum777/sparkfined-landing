@@ -5,6 +5,32 @@
   overflow: hidden;
 }
 
+/* Background animated grid */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridScroll 20s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes gridScroll {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
 .hero-title {
   font-size: clamp(2rem, 5vw, 3.5rem);
   line-height: 1.2;
@@ -19,6 +45,9 @@
   align-items: center;
   max-width: 1000px;
   margin: 4rem auto;
+  perspective: 1000px;
+  position: relative;
+  z-index: 1;
 }
 
 .pnl-card {
@@ -31,19 +60,84 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: transform var(--timing-normal), border-color var(--timing-normal);
+  transition: all var(--timing-normal);
+  position: relative;
+  transform-style: preserve-3d;
+  backdrop-filter: blur(10px);
 }
 
 .pnl-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--color-primary);
 }
 
 .pnl-card.chaotic {
   border-left: 4px solid var(--color-error);
+  box-shadow: 0 0 20px rgba(255, 68, 68, 0.1);
+}
+
+.pnl-card.chaotic:hover {
+  box-shadow: 0 15px 50px rgba(255, 68, 68, 0.25),
+              0 0 30px rgba(255, 68, 68, 0.15);
+  border-color: var(--color-error);
 }
 
 .pnl-card.smooth {
   border-left: 4px solid var(--color-success);
+  box-shadow: 0 0 20px rgba(0, 221, 136, 0.1);
+}
+
+.pnl-card.smooth:hover {
+  box-shadow: 0 15px 50px rgba(0, 221, 136, 0.25),
+              0 0 30px rgba(0, 221, 136, 0.15);
+  border-color: var(--color-success);
+}
+
+/* Glowing border animation */
+.pnl-card.chaotic::before,
+.pnl-card.smooth::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: var(--radius-xl);
+  opacity: 0;
+  transition: opacity var(--timing-normal);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.pnl-card.chaotic::before {
+  background: linear-gradient(45deg,
+    transparent,
+    rgba(255, 68, 68, 0.3),
+    transparent
+  );
+  animation: glowRotate 3s linear infinite;
+}
+
+.pnl-card.smooth::before {
+  background: linear-gradient(45deg,
+    transparent,
+    rgba(0, 221, 136, 0.3),
+    transparent
+  );
+  animation: glowRotate 3s linear infinite;
+}
+
+.pnl-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes glowRotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
 .pnl-label {
@@ -63,8 +157,12 @@
 }
 
 .pnl-chart {
-  font-size: 4rem;
   margin: 1.25rem 0;
+  width: 100%;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pnl-stats {
@@ -79,10 +177,18 @@
   justify-content: space-between;
   padding: 0.625rem 0;
   border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--timing-fast);
+  border-radius: 4px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .stat-row:last-child {
   border-bottom: none;
+}
+
+.stat-row:hover {
+  background-color: rgba(0, 245, 255, 0.05);
 }
 
 .stat-label {
@@ -133,12 +239,37 @@
   font-weight: 700;
   font-size: 1.125rem;
   border-radius: var(--radius-md);
-  transition: transform var(--timing-fast), box-shadow var(--timing-fast);
+  transition: all var(--timing-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(0, 245, 255, 0.4);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(0, 245, 255, 0.5),
+              0 5px 15px rgba(0, 221, 136, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(1.02);
 }
 
 /* Easter Egg */

@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import AnimatedLineChart from '../AnimatedLineChart';
+import CountingNumber from '../CountingNumber';
 import './Hero.css';
 
 export default function Hero() {
@@ -25,47 +27,77 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           {/* Chaotic Trading Card */}
-          <div className="pnl-card chaotic">
+          <motion.div
+            className="pnl-card chaotic"
+            initial={{ opacity: 0, rotateY: -90 }}
+            animate={{ opacity: 1, rotateY: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
             <div className="pnl-label error">CHAOTIC TRADING</div>
-            <div className="pnl-chart">📉</div>
+            <div className="pnl-chart">
+              <AnimatedLineChart
+                trend="down"
+                color="#FF4444"
+                glowColor="#FF4444"
+              />
+            </div>
             <div className="pnl-stats">
               <div className="stat-row">
                 <span className="stat-label">PnL</span>
-                <span className="stat-value bad">-23%</span>
+                <span className="stat-value bad">
+                  <CountingNumber value={-42} prefix="" suffix="%" duration={2.5} />
+                </span>
               </div>
               <div className="stat-row">
-                <span className="stat-label">Emotion</span>
-                <span className="stat-value bad">High</span>
+                <span className="stat-label">Win Rate</span>
+                <span className="stat-value bad">
+                  <CountingNumber value={38} suffix="%" duration={2.5} />
+                </span>
               </div>
               <div className="stat-row">
                 <span className="stat-label">Method</span>
-                <span className="stat-value bad">Reactive</span>
+                <span className="stat-value bad">Gut Feeling</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Arrow */}
           <div className="arrow-divider">→</div>
 
           {/* Data-Driven Card */}
-          <div className="pnl-card smooth">
+          <motion.div
+            className="pnl-card smooth"
+            initial={{ opacity: 0, rotateY: 90 }}
+            animate={{ opacity: 1, rotateY: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
             <div className="pnl-label success">DATA-DRIVEN TRADING</div>
-            <div className="pnl-chart">📈</div>
+            <div className="pnl-chart">
+              <AnimatedLineChart
+                trend="up"
+                color="#00DD88"
+                glowColor="#00DD88"
+              />
+            </div>
             <div className="pnl-stats">
               <div className="stat-row">
                 <span className="stat-label">PnL</span>
-                <span className="stat-value good">+67%</span>
+                <span className="stat-value good">
+                  <CountingNumber value={156} prefix="+" suffix="%" duration={2.5} />
+                </span>
               </div>
               <div className="stat-row">
-                <span className="stat-label">Emotion</span>
-                <span className="stat-value good">Low</span>
+                <span className="stat-label">Win Rate</span>
+                <span className="stat-value good">
+                  <CountingNumber value={64} suffix="%" duration={2.5} />
+                </span>
               </div>
               <div className="stat-row">
                 <span className="stat-label">Method</span>
-                <span className="stat-value good">Analytical</span>
+                <span className="stat-value good">Analytics</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.p
