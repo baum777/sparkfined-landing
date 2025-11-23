@@ -63,11 +63,8 @@
 }
 
 .pnl-chart {
-  width: 100%;
-  max-width: 240px;
+  font-size: 4rem;
   margin: 1.25rem 0;
-  display: flex;
-  justify-content: center;
 }
 
 .pnl-stats {
