@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+  <!-- Lightning bolt icon -->
+  <g transform="translate(5, 10)">
+    <path
+      d="M 25 5 L 15 25 L 22 25 L 18 40 L 32 20 L 24 20 L 25 5 Z"
+      fill="#00F5FF"
+      stroke="#00DD88"
+      stroke-width="1"
+      stroke-linejoin="round"
+    />
+  </g>
+
+  <!-- Sparkfined text -->
+  <text
+    x="50"
+    y="38"
+    font-family="'Space Grotesk', 'Inter', sans-serif"
+    font-size="32"
+    font-weight="700"
+    fill="#FFFFFF"
+    letter-spacing="0.5"
+  >
+    Sparkfined
+  </text>
+</svg>

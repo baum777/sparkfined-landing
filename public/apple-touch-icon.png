@@ -1,0 +1,12 @@
+This is a placeholder for Apple Touch Icon (180x180 PNG).
+
+For production, create a 180x180 PNG with:
+- Lightning bolt (⚡) design
+- Dark background (#0A0E1A)
+- Cyan accent (#00F5FF)
+- No transparency (solid background)
+
+Generate at: https://realfavicongenerator.net/
+Or use: https://favicon.io/favicon-generator/
+
+Upload the generated apple-touch-icon.png to replace this file.
