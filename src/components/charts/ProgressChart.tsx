@@ -26,7 +26,7 @@ export function ProgressChart({
   const metricEntries = Object.entries(metrics);
   if (!metricEntries.length) return null;
 
-  const chartData: ChartDataPoint[][] = metricEntries.map(([_, values]) =>
+  const chartData: ChartDataPoint[][] = metricEntries.map(([, values]) =>
     values.map((value, index) => ({ timestamp: index, value }))
   );
 

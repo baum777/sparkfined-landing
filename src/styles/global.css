@@ -211,6 +211,9 @@ button {
 }
 
 .mini-chart {
+  width: 100%;
+}
+
 /* Chart Demo */
 .chart-card {
   position: relative;
@@ -239,6 +242,7 @@ button {
 .progress-chart {
   width: 100%;
   height: auto;
+}
 .chart-title {
   position: absolute;
   top: 1.25rem;
