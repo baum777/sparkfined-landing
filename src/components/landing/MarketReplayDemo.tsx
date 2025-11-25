@@ -1,10 +1,18 @@
-import { useState } from 'react';
-import { demoData } from '../../content/landingContent';
+import { useMemo, useState } from 'react';
 import Button from '../shared/Button';
 import Card from '../shared/Card';
 import ModuleHeading from '../shared/ModuleHeading';
 import SectionShell from '../shared/SectionShell';
 import StatCard from '../shared/StatCard';
+import { MarketReplayTool } from '../tools/MarketReplay/MarketReplayTool';
+import { AIDetectionPanel } from '../charts/professional/AIDetectionPanel';
+import { TradeSnapshotDemo } from '../tools/Journal/TradeSnapshotDemo';
+import { buildAIDetectionSummary } from '../../lib/trading/analysis/aiDetection';
+import { calculateRSI } from '../../lib/trading/indicators/rsi';
+import { calculateMACD } from '../../lib/trading/indicators/macd';
+import type { OHLCData } from '../../lib/trading/types';
+import type { PatternMatch, SRLevel } from '../../lib/trading/patterns/types';
+import type { AIDetectionSummary } from '../../lib/trading/analysis/aiDetection';
 
 export type MarketReplayDemoProps = {
   id: string;
@@ -16,33 +24,6 @@ export type MarketReplayDemoProps = {
   closingText: string;
 };
 
-const ReplayChart = () => {
-  const data = demoData.replaySeries;
-  const height = 180;
-  const width = data.length * 48;
-  const min = Math.min(...data.map((d) => d.low));
-  const max = Math.max(...data.map((d) => d.high));
-  const scaleY = (value: number) => height - ((value - min) / (max - min)) * height;
-
-  return (
-    <svg className="replay-chart" viewBox={`0 0 ${width} ${height}`} role="presentation" aria-hidden>
-      <polyline
-        points={data.map((d, i) => `${i * 48 + 10},${scaleY(d.close).toFixed(1)}`).join(' ')}
-        fill="none"
-        stroke="#00d4ff"
-        strokeWidth={3}
-      />
-      {data.map((point, idx) => (
-        <circle key={point.time} cx={idx * 48 + 10} cy={scaleY(point.close)} r={4} fill="#00cc88" />
-      ))}
-      <rect x={(data.length - 1) * 48} y={0} width={40} height={height} fill="#ffffff" opacity={0.08} />
-      <text x={(data.length - 2) * 48} y={20} className="muted" fontSize="12">
-        Future candles hidden to remove hindsight bias
-      </text>
-    </svg>
-  );
-};
-
 export function MarketReplayDemo({
   id,
   title,
@@ -52,12 +33,44 @@ export function MarketReplayDemo({
   decisionButtons,
   closingText,
 }: MarketReplayDemoProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [selectedDecision, setSelectedDecision] = useState<string | null>(null);
+  const [visibleCandles, setVisibleCandles] = useState<OHLCData[]>([]);
+  const [srLevels, setSrLevels] = useState<SRLevel[]>([]);
+  const [patterns, setPatterns] = useState<PatternMatch[]>([]);
+
+  const aiSummary = useMemo<AIDetectionSummary>(() => {
+    if (!visibleCandles.length) {
+      return {
+        trendBias: 'neutral',
+        confidence: 0.35,
+        context: { trend: 'sideways', volume: 'normal', volatility: 'normal' },
+      };
+    }
+    const closes = visibleCandles.map((c) => c.close);
+    const rsiValues = calculateRSI(closes).values;
+    const macdLine = calculateMACD(closes).line;
+    const lastMacd = macdLine[macdLine.length - 1];
+    const macdSignal = !lastMacd
+      ? 'neutral'
+      : lastMacd.macd > (lastMacd.signal ?? 0)
+        ? 'bullish'
+        : lastMacd.macd < (lastMacd.signal ?? 0)
+          ? 'bearish'
+          : 'neutral';
+    const lastRsi = rsiValues[rsiValues.length - 1];
+    return buildAIDetectionSummary(visibleCandles, srLevels, patterns, {
+      rsi: lastRsi,
+      macdSignal,
+    });
+  }, [patterns, srLevels, visibleCandles]);
 
   return (
     <SectionShell id={id}>
       <ModuleHeading title={title} subtitle={subtitle} />
+      <p className="microcopy muted">
+        Starte das Replay, beobachte die AI-Bewertung und pausiere, wenn du ein Setup handeln würdest. Mit einem
+        Snapshot hältst du den Moment inklusive Kontext fest.
+      </p>
       <div className="stat-shock">
         <Card variant="outlined">
           <StatCard
@@ -77,39 +90,31 @@ export function MarketReplayDemo({
         </Card>
       </div>
       <Card variant="elevated" padding="lg">
-        <div className="replay-header">
-          <div>
-            <p className="eyebrow">Solana meme token replay</p>
-            <h4>$Sparkfined price action replay</h4>
-            <p className="muted">Speed: 10x · Time: simulated session</p>
-          </div>
-          <div className="replay-controls">
-            <button className="chip" onClick={() => setIsPlaying(false)}>
-              ⏮ Reset
-            </button>
-            <button className="chip" onClick={() => setIsPlaying(false)}>
-              ⏪ Step back
-            </button>
-            <button className="chip chip-active" onClick={() => setIsPlaying((v) => !v)}>
-              {isPlaying ? '⏸ Pause' : '▶ Play'}
-            </button>
-            <button className="chip" onClick={() => setIsPlaying(true)}>
-              ⏩ Fast forward
-            </button>
-          </div>
-        </div>
-        <ReplayChart />
-        <div className="decision-block">
-          <h4>What would you do right now?</h4>
-          <div className="decision-buttons">
-            {decisionButtons.map((label) => (
-              <Button
-                key={label}
-                label={label}
-                variant={selectedDecision === label ? 'secondary' : 'primary'}
-                onClick={() => setSelectedDecision(label)}
-              />
-            ))}
+        <MarketReplayTool
+          onInsightsChange={({ visible, srLevels: sr, patterns: pt }) => {
+            setVisibleCandles(visible);
+            setSrLevels(sr);
+            setPatterns(pt);
+          }}
+        />
+        <div className="replay-insights-grid">
+          <AIDetectionPanel summary={aiSummary} />
+          <div className="decision-block">
+            <h4>What would you do right now?</h4>
+            <div className="decision-buttons">
+              {decisionButtons.map((label) => (
+                <Button
+                  key={label}
+                  label={label}
+                  variant={selectedDecision === label ? 'secondary' : 'primary'}
+                  onClick={() => setSelectedDecision(label)}
+                />
+              ))}
+            </div>
+            <div className="microcopy muted">
+              Snapshot = kleines Journal-Bookmark für diesen Moment (Bias + Entry + R:R Hinweis).
+            </div>
+            <TradeSnapshotDemo currentPrice={visibleCandles[visibleCandles.length - 1]?.close} aiSummary={aiSummary} />
           </div>
         </div>
       </Card>
