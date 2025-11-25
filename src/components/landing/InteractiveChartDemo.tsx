@@ -1,8 +1,17 @@
 import { useMemo, useState } from 'react';
-import { demoData } from '../../content/landingContent';
+import { MarketDataGenerator } from '../../lib/trading/simulation/marketDataGenerator';
+import type { OHLCData } from '../../lib/trading/types';
 import Card from '../shared/Card';
 import ModuleHeading from '../shared/ModuleHeading';
 import SectionShell from '../shared/SectionShell';
+import { TradingChartPro } from '../charts/professional/TradingChartPro';
+import { detectSupportResistance } from '../../lib/trading/patterns/supportResistance';
+import { detectBullFlag, detectRange } from '../../lib/trading/patterns/trendPatterns';
+import { buildAIDetectionSummary } from '../../lib/trading/analysis/aiDetection';
+import { calculateRSI } from '../../lib/trading/indicators/rsi';
+import { calculateMACD } from '../../lib/trading/indicators/macd';
+import { AIDetectionPanel } from '../charts/professional/AIDetectionPanel';
+import type { PatternMatch } from '../../lib/trading/patterns/types';
 
 export type InteractiveChartDemoProps = {
   id: string;
@@ -19,85 +28,6 @@ export type InteractiveChartDemoProps = {
   closingText: string;
 };
 
-const ChartCanvas = ({ activeIndicators }: { activeIndicators: string[] }) => {
-  const data = demoData.chartSeries;
-  const height = 260;
-  const width = data.length * 32;
-  const [min, max] = useMemo(() => {
-    const lows = data.map((d) => d.low);
-    const highs = data.map((d) => d.high);
-    return [Math.min(...lows), Math.max(...highs)];
-  }, [data]);
-
-  const yScale = (value: number) => {
-    if (max === min) return height / 2;
-    return height - ((value - min) / (max - min)) * height;
-  };
-
-  const linePath = data
-    .map((point, idx) => `${idx * 32 + 10},${yScale(point.close).toFixed(1)}`)
-    .join(' ');
-
-  return (
-    <svg className="demo-chart" viewBox={`0 0 ${width} ${height}`} role="presentation" aria-hidden>
-      <defs>
-        <linearGradient id="candleGradient" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#00d4ff" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#00cc88" stopOpacity="0.2" />
-        </linearGradient>
-      </defs>
-      {data.map((point, idx) => {
-        const x = idx * 32 + 10;
-        const highY = yScale(point.high);
-        const lowY = yScale(point.low);
-        const openY = yScale(point.open);
-        const closeY = yScale(point.close);
-        const positive = point.close >= point.open;
-        const bodyY = positive ? closeY : openY;
-        const bodyHeight = Math.max(4, Math.abs(closeY - openY));
-        return (
-          <g key={point.time}>
-            <line x1={x + 6} y1={highY} x2={x + 6} y2={lowY} stroke="#7a7f8f" strokeWidth={2} />
-            <rect
-              x={x}
-              y={bodyY}
-              width={12}
-              height={bodyHeight}
-              fill={positive ? 'url(#candleGradient)' : '#FF8C00'}
-              opacity={0.9}
-              rx={2}
-            />
-          </g>
-        );
-      })}
-      {activeIndicators.includes('Line') && (
-        <polyline
-          points={linePath}
-          fill="none"
-          stroke="#66e0ff"
-          strokeWidth={2}
-          strokeDasharray="6 4"
-          opacity={0.9}
-        />
-      )}
-      {activeIndicators.includes('Support/Resistance') && (
-        <>
-          <line x1={0} y1={yScale(max - (max - min) * 0.2)} x2={width} y2={yScale(max - (max - min) * 0.2)} className="sr-line" />
-          <line x1={0} y1={yScale(min + (max - min) * 0.2)} x2={width} y2={yScale(min + (max - min) * 0.2)} className="sr-line" />
-        </>
-      )}
-      {activeIndicators.includes('Volume') && (
-        <g className="volume-bars">
-          {data.map((point, idx) => {
-            const barHeight = 40 + (idx % 3) * 12;
-            return <rect key={`v-${point.time}`} x={idx * 32 + 8} y={height - barHeight} width={14} height={barHeight} rx={2} />;
-          })}
-        </g>
-      )}
-    </svg>
-  );
-};
-
 export function InteractiveChartDemo({
   id,
   title,
@@ -108,7 +38,45 @@ export function InteractiveChartDemo({
   comparisonWith,
   closingText,
 }: InteractiveChartDemoProps) {
-  const [activeIndicators, setActiveIndicators] = useState<string[]>(['Line', 'Support/Resistance', 'RSI']);
+  const [activeIndicators, setActiveIndicators] = useState<string[]>(['Volume', 'RSI', 'Moving Averages']);
+  const generator = useMemo(() => new MarketDataGenerator(), []);
+  const [candles] = useState<OHLCData[]>(() =>
+    generator.generate({ candleCount: 260, volatility: 0.015, trend: 'bullish', trendStrength: 0.35 }).candles
+  );
+  const indicatorTooltips: Record<string, string> = {
+    Volume: 'Shows buying vs. selling pressure per candle to contextualize moves.',
+    RSI: 'Relative Strength Index: momentum oscillator highlighting overbought/oversold zones.',
+    'Moving Averages': 'Smooths price to reveal trend direction and pullback opportunities.',
+    'Support/Resistance': 'Highlights nearby levels where price historically stalled or bounced.',
+  };
+  const srLevels = useMemo(() => detectSupportResistance(candles), [candles]);
+  const patterns = useMemo(() => {
+    const matches: PatternMatch[] = [];
+    const flag = detectBullFlag(candles);
+    const range = detectRange(candles);
+    if (flag) matches.push(flag);
+    if (range) matches.push(range);
+    return matches;
+  }, [candles]);
+
+  const aiSummary = useMemo(() => {
+    const closes = candles.map((c) => c.close);
+    const macd = calculateMACD(closes);
+    const macdLine = macd.line[macd.line.length - 1];
+    const macdSignal = !macdLine
+      ? 'neutral'
+      : macdLine.macd > (macdLine.signal ?? 0)
+        ? 'bullish'
+        : macdLine.macd < (macdLine.signal ?? 0)
+          ? 'bearish'
+          : 'neutral';
+    const rsiValues = calculateRSI(closes).values;
+    const latestRsi = rsiValues[rsiValues.length - 1];
+    return buildAIDetectionSummary(candles, srLevels, patterns.filter(Boolean), {
+      rsi: latestRsi,
+      macdSignal,
+    });
+  }, [candles, patterns, srLevels]);
 
   const toggleIndicator = (indicator: string) => {
     setActiveIndicators((prev) =>
@@ -116,9 +84,19 @@ export function InteractiveChartDemo({
     );
   };
 
+  const showVolume = activeIndicators.includes('Volume');
+  const showRSI = activeIndicators.includes('RSI');
+  const showSMA = activeIndicators.includes('Moving Averages');
+  const showBollinger = activeIndicators.includes('Support/Resistance');
+
   return (
     <SectionShell id={id} variant="dark">
       <ModuleHeading title={title} subtitle={subtitle} alignment="center" />
+      <p className="microcopy muted">
+        Wir simulieren einen volatilen Meme-Token-ähnlichen Chart. Indikatoren sind toggelbar, damit du
+        siehst, wie Struktur, Momentum und Liquidität zusammenspielen – das AI Panel fasst die Lage in
+        einem Satz zusammen.
+      </p>
       <Card variant="elevated" padding="lg">
         <div className="chart-controls" role="group" aria-label="Indicator toggles">
           {availableIndicators.map((indicator) => (
@@ -126,20 +104,27 @@ export function InteractiveChartDemo({
               key={indicator}
               className={`chip ${activeIndicators.includes(indicator) ? 'chip-active' : ''}`}
               onClick={() => toggleIndicator(indicator)}
+              title={indicatorTooltips[indicator] ?? indicator}
             >
               {indicator}
             </button>
           ))}
         </div>
-        <div className="chart-widget">
-          <div className="chart-area">
-            <ChartCanvas activeIndicators={activeIndicators} />
-            <div className="ai-box">
-              <p className="eyebrow">AI detection</p>
-              <h4>{aiDetectionBox.pattern}</h4>
-              <p>{aiDetectionBox.probability}</p>
-              <p className="muted">{aiDetectionBox.riskZone}</p>
-            </div>
+        <div className="chart-widget pro-chart-widget">
+          <div className="chart-area live-chart-area">
+            <TradingChartPro
+              data={candles}
+              showVolume={showVolume}
+              showRSI={showRSI}
+              showSMA={showSMA}
+              showBollinger={showBollinger}
+              srLevels={srLevels}
+              patterns={patterns.filter(Boolean)}
+            />
+            <AIDetectionPanel summary={aiSummary} />
+            <p className="muted ai-footnote">
+              Baseline: {aiDetectionBox.pattern} · {aiDetectionBox.probability} · {aiDetectionBox.riskZone}
+            </p>
           </div>
           <div className="chart-legend">
             <div className="legend-line" aria-hidden>
@@ -148,6 +133,9 @@ export function InteractiveChartDemo({
             </div>
             <div className="legend-row">
               <div className="legend-pill" /> Volume / sentiment overlays
+            </div>
+            <div className="legend-row">
+              <div className="legend-pill" style={{ background: 'linear-gradient(90deg, #8b5cf6, #00d4ff)' }} /> RSI & momentum bands
             </div>
           </div>
         </div>

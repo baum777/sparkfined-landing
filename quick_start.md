@@ -4,7 +4,7 @@
 
 **Ziel:** Realitätsgetreue Demo-Tools für Sparkfined Landing Page
 
-**Hauptdokumentation:** Siehe `CODEX-IMPLEMENTATION-SPEC.md` für Details
+**Hauptdokumentation:** Siehe `docs/trading-demo-tools/FULL_PLAN.md` für die Gesamtarchitektur und `CODEX-IMPLEMENTATION-SPEC.md` für ergänzende Details. Dieses Quick Start dient als konkrete Checkliste für die Codex-Implementierung.
 
  
 
