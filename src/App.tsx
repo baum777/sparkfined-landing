@@ -1,38 +1,15 @@
-import './styles/global.css';
-import './styles/landing.css';
-import CTAPaths from './components/landing/CTAPaths';
-import FAQ from './components/landing/FAQ';
-import Footer from './components/landing/Footer';
-import HeaderNavigation from './components/landing/HeaderNavigation';
-import HeroProblemStatement from './components/landing/HeroProblemStatement';
-import InteractiveChartDemo from './components/landing/InteractiveChartDemo';
-import JournalSolution from './components/landing/JournalSolution';
-import MarketReplayDemo from './components/landing/MarketReplayDemo';
-import ProgressionSystem from './components/landing/ProgressionSystem';
-import SignalAnalyzer from './components/landing/SignalAnalyzer';
-import SocialProof from './components/landing/SocialProof';
-import SystemArchitecture from './components/landing/SystemArchitecture';
-import { landingContent } from './content/landingContent';
+/**
+ * App Component
+ * Main entry point - now renders the Hero's Journey Landing Page
+ * 
+ * Previous feature-based landing page has been replaced with narrative storytelling.
+ * The old components are preserved in /components/landing/ if needed for reference.
+ */
+
+import LandingPage from './pages/LandingPage';
 
 function App() {
-  return (
-    <div className="app">
-      <HeaderNavigation {...landingContent.header} />
-      <main>
-        <HeroProblemStatement {...landingContent.hero} />
-        <InteractiveChartDemo {...landingContent.chartDemo} />
-        <JournalSolution {...landingContent.journalSolution} />
-        <MarketReplayDemo {...landingContent.marketReplay} />
-        <ProgressionSystem {...landingContent.progression} />
-        <SignalAnalyzer {...landingContent.signalAnalyzer} />
-        <SystemArchitecture {...landingContent.architecture} />
-        <SocialProof {...landingContent.socialProof} />
-        <FAQ {...landingContent.faq} />
-        <CTAPaths {...landingContent.ctaPaths} />
-      </main>
-      <Footer {...landingContent.footer} />
-    </div>
-  );
+  return <LandingPage />;
 }
 
 export default App;
