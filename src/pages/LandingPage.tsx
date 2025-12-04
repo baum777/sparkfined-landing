@@ -18,7 +18,8 @@ import VoicesSection from '../components/landing/VoicesSection';
 import FinalCTA from '../components/landing/FinalCTA';
 import FooterJourney from '../components/landing/FooterJourney';
 
-// Import styles
+// Import styles - Design System v1.0
+import '../styles/design-tokens.css';  // FIRST: Design system variables
 import '../styles/global.css';
 import '../styles/landing.css';
 
