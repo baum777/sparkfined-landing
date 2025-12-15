@@ -364,16 +364,14 @@ export const landingContent = {
       {
         title: 'Explore',
         description:
-          'Join the community and be part of the movement that will resurrect meme tokens intended purpose.'
-           'Community focused ~ fascination & enjoyment of the concept itself ~  WAGMI at its core.',
+          'Join the community and be part of the movement that will resurrect meme tokens intended purpose. Community focused ~ fascination & enjoyment of the concept itself ~  WAGMI at its core.',
         buttonLabel: 'Try the tools again',
         buttonAction: '#tools',
       },
       {
         title: 'Learn',
         description:
-          'Read the concept & philosophie behind Sparkfined – why it was built  as behavior-focused command center for Solana meme traders. 
-          ' nderstand the system before you plug it into your own process.',
+          'Read the concept & philosophie behind Sparkfined – why it was built  as behavior-focused command center for Solana meme traders. Understand the system before you plug it into your own process.',
         buttonLabel: 'Open docs & concept map',
         buttonAction: 'https://github.com/baum777/Sparkfined_PWA/concept_&_philosophie_en',
       },
@@ -382,7 +380,7 @@ export const landingContent = {
         description:
           'Get access to deeper features and $Sparkfined-gated tools as the meme toolkit expands.',
         buttonLabel: 'Access - Token Gated',
-        buttonAction: href: 'https://prehigh.fun',
+        buttonAction: 'https://prehigh.fun',
       },
     ],
     closingCopy: [
