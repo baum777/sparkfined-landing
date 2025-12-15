@@ -364,38 +364,40 @@ export const landingContent = {
       {
         title: 'Explore',
         description:
-          'Play with the interactive demos on this page – charts, replays and signal checks – as long as you like. Get a feeling for how Sparkfined frames Solana meme trading before you commit.',
+          'Join the community and be part of the movement that will resurrect meme tokens intended purpose.'
+           'Community focused ~ fascination & enjoyment of the concept itself ~  WAGMI at its core.',
         buttonLabel: 'Try the tools again',
         buttonAction: '#tools',
       },
       {
         title: 'Learn',
         description:
-          'Read the story and architecture behind Sparkfined – why it is built as an offline-first, behavior-focused command center for Solana meme traders. Understand the system before you plug it into your own process.',
+          'Read the concept & philosophie behind Sparkfined – why it was built  as behavior-focused command center for Solana meme traders. 
+          ' nderstand the system before you plug it into your own process.',
         buttonLabel: 'Open docs & concept map',
-        buttonAction: 'https://github.com/baum777/sparkfined-landing',
+        buttonAction: 'https://github.com/baum777/Sparkfined_PWA/concept_&_philosophie_en',
       },
       {
         title: 'Join',
         description:
-          'Apply for early access and help shape the first Sparkfined cohorts. Get access to deeper features and $Sparkfined-gated tools as the meme toolkit expands.',
-        buttonLabel: 'Request early access',
-        buttonAction: 'https://forms.gle/',
+          'Get access to deeper features and $Sparkfined-gated tools as the meme toolkit expands.',
+        buttonLabel: 'Access - Token Gated',
+        buttonAction: href: 'https://prehigh.fun',
       },
     ],
     closingCopy: [
-      'No pressure. Sparkfined is not about rushing into every new Solana meme – and access to the toolkit should feel the same.',
+      'No pressure -  Sparkfined is not about rushing into every new Solana meme – and access to the toolkit should feel the same.',
       'Pick the pace that matches where you are right now as a trader.',
     ],
   },
   footer: {
     copyrightText:
-      '© 2024 Sparkfined · Offline-first Solana meme trading command center · Built with Vite, React and TypeScript.',
+      '© 2025 Sparkfined · Offline-first Solana meme trading command center · Built with Vite, React and TypeScript.',
     links: [
-      { label: 'GitHub', href: 'https://github.com/baum777/sparkfined-landing' },
-      { label: 'Documentation', href: 'https://github.com/baum777/sparkfined-landing/tree/main/docs' },
-      { label: 'X / Twitter', href: 'https://twitter.com' },
-      { label: 'Discord', href: 'https://discord.gg' },
+      { label: 'GitHub', href: 'https://github.com/baum777/Sparkfined_PWA' },
+      { label: 'Prehigh - Community ', href: 'https://x.com/i/communities/1992505232836698582' },
+      { label: 'X | Sparkfined', href: 'https://x.com/sparkfined' },
+      { label: 'X | PreHigh', href: 'https://x.com/prehigh' },
     ],
   },
 };
