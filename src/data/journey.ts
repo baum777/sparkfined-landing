@@ -220,6 +220,9 @@ export const testimonials: Testimonial[] = [
 
 export const navigationLinks = [
   { label: 'The Journey', href: '#journey' },
+  { label: 'Surge Arena', href: '#surge-overview' },
+  { label: 'Pool & Boost', href: '#pool-and-boost' },
+  { label: 'Arena Cycle', href: '#arena-cycle' },
   { label: 'Transformation', href: '#transformation' },
   { label: 'Begin', href: '#begin' },
 ];

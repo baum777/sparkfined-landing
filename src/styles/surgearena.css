@@ -1,0 +1,449 @@
+/* Surge Arena specific styling */
+
+.lead-paragraph {
+  margin-bottom: var(--space-6);
+  color: var(--color-fog);
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.pillar-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pillar-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-spark);
+  margin-bottom: var(--space-2);
+}
+
+.pillar-title {
+  margin: 0;
+}
+
+.flywheel-card {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(157, 78, 221, 0.05));
+  border: 1px solid var(--color-spark);
+}
+
+.flywheel-title {
+  margin-top: 0;
+  margin-bottom: var(--space-3);
+}
+
+.flywheel-steps {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-4) 0 0 0;
+}
+
+.flywheel-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-smoke);
+}
+
+.flywheel-steps li:last-child {
+  border-bottom: none;
+}
+
+.step-arrow {
+  color: var(--color-spark);
+  font-weight: 700;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.revenue-streams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.stream-card {
+  border-left: 4px solid;
+}
+
+.stream-card.stream-spark {
+  border-left-color: var(--color-spark);
+}
+
+.stream-card.stream-gold {
+  border-left-color: var(--color-gold);
+}
+
+.stream-title {
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+}
+
+.stream-range {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-spark);
+  margin: var(--space-2) 0;
+}
+
+.params-card {
+  margin-top: var(--space-6);
+}
+
+.params-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.param-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-4);
+  padding: var(--space-3);
+  background: var(--color-void);
+  border-radius: 4px;
+}
+
+.param-label {
+  font-weight: 600;
+}
+
+.param-value {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-spark);
+}
+
+.param-note {
+  text-align: right;
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-spark), transparent);
+  margin: var(--space-10) 0;
+}
+
+.formula-card {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.08), rgba(157, 78, 221, 0.08));
+}
+
+.formula-breakdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.formula-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.formula-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-spark);
+}
+
+.formula-total .formula-value {
+  color: var(--color-phosphor);
+  font-size: 3rem;
+}
+
+.formula-label {
+  font-size: 0.875rem;
+  color: var(--color-mist);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.formula-operator {
+  font-size: 2rem;
+  color: var(--color-mist);
+  opacity: 0.5;
+}
+
+.formula-calculation {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  background: var(--color-void);
+  padding: var(--space-4);
+  border-radius: 8px;
+  border: 1px solid var(--color-smoke);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.scaling-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-4);
+  padding: var(--space-3);
+}
+
+.table-header {
+  font-weight: 700;
+  color: var(--color-spark);
+  border-bottom: 2px solid var(--color-spark);
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+}
+
+.table-row {
+  background: var(--color-void);
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.table-row:hover {
+  background: var(--color-smoke);
+}
+
+.highlight {
+  color: var(--color-phosphor);
+  font-weight: 700;
+}
+
+.timeline-card {
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.03), rgba(157, 78, 221, 0.03));
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+.timeline-phase {
+  position: relative;
+  padding: var(--space-4);
+  background: var(--color-void);
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.phase-spark {
+  border-left-color: var(--color-spark);
+}
+
+.phase-violet {
+  border-left-color: var(--color-violet);
+}
+
+.phase-gold {
+  border-left-color: var(--color-gold);
+}
+
+.phase-phosphor {
+  border-left-color: var(--color-phosphor);
+}
+
+.phase-blood {
+  border-left-color: var(--color-blood);
+}
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.phase-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-spark);
+  color: var(--color-void);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.phase-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.phase-timing {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: var(--color-spark);
+}
+
+.phase-description {
+  margin: var(--space-2) 0 var(--space-4) 0;
+  padding-left: calc(40px + var(--space-3));
+}
+
+.phase-bar {
+  height: 8px;
+  border-radius: 4px;
+  margin-left: calc(40px + var(--space-3));
+  position: relative;
+  overflow: hidden;
+}
+
+.phase-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, currentColor 50%, transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+.phase-bar-spark {
+  background: var(--color-spark);
+  color: var(--color-spark);
+}
+
+.phase-bar-violet {
+  background: var(--color-violet);
+  color: var(--color-violet);
+}
+
+.phase-bar-gold {
+  background: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.phase-bar-phosphor {
+  background: var(--color-phosphor);
+  color: var(--color-phosphor);
+}
+
+.phase-bar-blood {
+  background: var(--color-blood);
+  color: var(--color-blood);
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+.rewards-section {
+  margin-top: var(--space-8);
+}
+
+.rewards-heading {
+  margin-bottom: var(--space-4);
+}
+
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-6);
+}
+
+.reward-card {
+  text-align: center;
+  position: relative;
+  border: 2px solid transparent;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.reward-card:hover {
+  transform: translateY(-4px);
+}
+
+.reward-card.reward-1st {
+  border-color: var(--color-phosphor);
+}
+
+.reward-card.reward-2nd {
+  border-color: var(--color-gold);
+}
+
+.reward-card.reward-3rd {
+  border-color: var(--color-spark);
+}
+
+.reward-badge {
+  font-size: 3rem;
+  margin-bottom: var(--space-2);
+}
+
+.reward-boost {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-phosphor);
+  margin: var(--space-2) 0;
+}
+
+.reward-card.reward-2nd .reward-boost {
+  color: var(--color-gold);
+}
+
+.reward-card.reward-3rd .reward-boost {
+  color: var(--color-spark);
+}
+
+.submission-card {
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .param-row {
+    grid-template-columns: 1fr;
+  }
+
+  .phase-description,
+  .phase-bar {
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  .formula-value {
+    font-size: 2rem;
+  }
+
+  .formula-total .formula-value {
+    font-size: 2.5rem;
+  }
+}

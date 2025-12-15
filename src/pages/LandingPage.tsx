@@ -17,11 +17,15 @@ import TransformSection from '../components/landing/TransformSection';
 import VoicesSection from '../components/landing/VoicesSection';
 import FinalCTA from '../components/landing/FinalCTA';
 import FooterJourney from '../components/landing/FooterJourney';
+import SurgeOverview from '../components/surgearena/SurgeOverview';
+import PoolAndBoost from '../components/surgearena/PoolAndBoost';
+import ArenaCycle from '../components/surgearena/ArenaCycle';
 
 // Import styles - Design System v1.0
 import '../styles/design-tokens.css';  // FIRST: Design system variables
 import '../styles/global.css';
 import '../styles/landing.css';
+import '../styles/surgearena.css';
 
 export default function LandingPage() {
   useEffect(() => {
@@ -44,7 +48,7 @@ export default function LandingPage() {
       <Navigation />
 
       {/* Main Content */}
-      <main>
+      <main id="main-content">
         {/* Hero - Opening Statement */}
         <HeroSection />
 
@@ -53,6 +57,11 @@ export default function LandingPage() {
 
         {/* Act II: The Road of Trials - The Five Phases */}
         <JourneySection />
+
+        {/* Surge Arena Mechanics */}
+        <SurgeOverview />
+        <PoolAndBoost />
+        <ArenaCycle />
 
         {/* Act III: The Transformation - Before/After */}
         <TransformSection />
